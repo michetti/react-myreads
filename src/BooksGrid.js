@@ -5,6 +5,11 @@ import Book from './Book.js'
 class BooksGrid extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
+    bookTopContent: PropTypes.func,
+  }
+
+  static defaultProps = {
+    bookTopContent: (book) => {}
   }
 
   render() {
@@ -18,8 +23,9 @@ class BooksGrid extends Component {
               <Book
                 title={book.title}
                 authors={book.authors}
-                thumbnail={book.imageLinks.thumbnail}
-              />
+                thumbnail={book.imageLinks.thumbnail}>
+                {this.props.bookTopContent(book)}
+              </Book>
             </li>
           );
         })}

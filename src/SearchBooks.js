@@ -1,11 +1,21 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as BooksAPI from './BooksAPI';
 import BooksGrid from './BooksGrid';
+import BookshelfChanger from './BookshelfChanger'
 
 class SearchBooks extends Component {
   state = {
-    books: []
+    books: [],
+  }
+
+  static propTypes = {
+    myBooks: PropTypes.array,
+  }
+
+  static defaultProps = {
+    myBooks: [],
   }
 
   resetBooks = () => {
@@ -29,7 +39,22 @@ class SearchBooks extends Component {
     }
   }
 
+  // TODO: should this function be here or in a helper lib?
+  findBook = (books, bookId) => {
+    return books.find((myBook) => {
+      return myBook.id === bookId
+    });
+  }
+
+  // TODO: should this function be here or in a helper lib?
+  findBookShelf = (books, bookId) => {
+    const book = this.findBook(books, bookId);
+    return book ? book.shelf : 'none';
+  }
+
   render() {
+    const {myBooks} = this.props;
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -39,7 +64,15 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BooksGrid books={this.state.books} />
+          <BooksGrid
+            books={this.state.books}
+            bookTopContent={(book) => (
+              <BookshelfChanger
+                book={book}
+                shelf={this.findBookShelf(myBooks, book.id)}
+              />
+            )}
+          />
         </div>
       </div>
     );

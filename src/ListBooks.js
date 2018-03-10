@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as BooksAPI from './BooksAPI'
+import PropTypes from 'prop-types';
 import Bookshelf from './Bookshelf'
 
 class ListBooks extends Component {
-  state = {
-    books: []
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({books});
-    });
-  }
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+  };
 
   render() {
+    const { books } = this.props;
+
     // TODO: trying currying, but doens't look very helpful here
     const filter = (shelf, book) => book.shelf && book.shelf === shelf;
     const currentlyReading = filter.bind(null, 'currentlyReading');
@@ -30,15 +26,15 @@ class ListBooks extends Component {
           <div>
             <Bookshelf
               title="Currently Reading"
-              books={this.state.books.filter(currentlyReading)}
+              books={books.filter(currentlyReading)}
             />
             <Bookshelf
               title="Want to Read"
-              books={this.state.books.filter(wantToRead)}
+              books={books.filter(wantToRead)}
             />
             <Bookshelf
               title="Read"
-              books={this.state.books.filter(read)}
+              books={books.filter(read)}
             />
           </div>
         </div>
