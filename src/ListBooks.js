@@ -6,10 +6,15 @@ import Bookshelf from './Bookshelf'
 class ListBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
+    onBookUpdated: PropTypes.func,
   };
 
+  static defaultProps = {
+    onBookUpdated: (book) => {}
+  }
+
   render() {
-    const { books } = this.props;
+    const { books, onBookUpdated } = this.props;
 
     // TODO: trying currying, but doens't look very helpful here
     const filter = (shelf, book) => book.shelf && book.shelf === shelf;
@@ -27,14 +32,17 @@ class ListBooks extends Component {
             <Bookshelf
               title="Currently Reading"
               books={books.filter(currentlyReading)}
+              onBookUpdated={onBookUpdated}
             />
             <Bookshelf
               title="Want to Read"
               books={books.filter(wantToRead)}
+              onBookUpdated={onBookUpdated}
             />
             <Bookshelf
               title="Read"
               books={books.filter(read)}
+              onBookUpdated={onBookUpdated}
             />
           </div>
         </div>

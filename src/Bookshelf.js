@@ -7,10 +7,15 @@ class Bookshelf extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
+    onBookUpdated: PropTypes.func,
   };
 
+  static defaultProps = {
+    onBookUpdated: (book) => {}
+  }
+
   render() {
-    const {title, books} = this.props;
+    const {title, books, onBookUpdated} = this.props;
 
     return (
       <div className="bookshelf">
@@ -19,7 +24,10 @@ class Bookshelf extends Component {
           <BooksGrid
             books={books}
             bookTopContent={(book) => (
-              <BookshelfChanger book={book} shelf={book.shelf} />
+              <BookshelfChanger
+                book={book}
+                shelf={book.shelf}
+                onChange={onBookUpdated} />
             )}
           />
         </div>

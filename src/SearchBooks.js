@@ -12,10 +12,12 @@ class SearchBooks extends Component {
 
   static propTypes = {
     myBooks: PropTypes.array,
+    onBookUpdated: PropTypes.func,
   }
 
   static defaultProps = {
     myBooks: [],
+    onBookUpdated: (book) => {}
   }
 
   resetBooks = () => {
@@ -53,7 +55,7 @@ class SearchBooks extends Component {
   }
 
   render() {
-    const {myBooks} = this.props;
+    const {myBooks, onBookUpdated} = this.props;
 
     return (
       <div className="search-books">
@@ -70,6 +72,7 @@ class SearchBooks extends Component {
               <BookshelfChanger
                 book={book}
                 shelf={this.findBookShelf(myBooks, book.id)}
+                onChange={onBookUpdated}
               />
             )}
           />
