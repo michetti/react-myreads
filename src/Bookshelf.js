@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BooksGrid from './BooksGrid'
-import BookshelfChanger from './BookshelfChanger'
+import BookshelfChanger from './BookshelfChanger';
 
 class Bookshelf extends Component {
   static propTypes = {
