@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import Bookshelf from './Bookshelf';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import Bookshelf from "./Bookshelf";
 
 class ListBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
-    onBookUpdated: PropTypes.func,
+    onBookUpdated: PropTypes.func
   };
 
   static defaultProps = {
-    onBookUpdated: (book) => {}
-  }
+    onBookUpdated: book => {}
+  };
 
   render() {
     const { books, onBookUpdated } = this.props;
 
     // TODO: trying currying, but doens't look very helpful here
     const filter = (shelf, book) => book.shelf && book.shelf === shelf;
-    const currentlyReading = filter.bind(null, 'currentlyReading');
-    const wantToRead = filter.bind(null, 'wantToRead');
-    const read = filter.bind(null, 'read');
+    const currentlyReading = filter.bind(null, "currentlyReading");
+    const wantToRead = filter.bind(null, "wantToRead");
+    const read = filter.bind(null, "read");
 
     return (
       <div className="list-books">

@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import BooksGrid from './BooksGrid'
-import BookshelfChanger from './BookshelfChanger';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import BooksGrid from "./BooksGrid";
+import BookshelfChanger from "./BookshelfChanger";
 
 class Bookshelf extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
-    onBookUpdated: PropTypes.func,
+    onBookUpdated: PropTypes.func
   };
 
   static defaultProps = {
-    onBookUpdated: (book) => {}
-  }
+    onBookUpdated: book => {}
+  };
 
   render() {
-    const {title, books, onBookUpdated} = this.props;
+    const { title, books, onBookUpdated } = this.props;
 
     return (
       <div className="bookshelf">
@@ -23,11 +23,12 @@ class Bookshelf extends Component {
         <div className="bookshelf-books">
           <BooksGrid
             books={books}
-            bookTopContent={(book) => (
+            bookTopContent={book => (
               <BookshelfChanger
                 book={book}
                 shelf={book.shelf}
-                onChange={onBookUpdated} />
+                onChange={onBookUpdated}
+              />
             )}
           />
         </div>
