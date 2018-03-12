@@ -12,6 +12,14 @@ class BooksGrid extends Component {
     bookTopContent: book => {}
   };
 
+  thumbnail = book => {
+    if (book.imageLinks) {
+      return book.imageLinks.thumbnail;
+    }
+
+    return "http://via.placeholder.com/128x193?text=no+image";
+  };
+
   render() {
     const { books } = this.props;
 
@@ -23,7 +31,7 @@ class BooksGrid extends Component {
               <Book
                 title={book.title}
                 authors={book.authors}
-                thumbnail={book.imageLinks.thumbnail}
+                thumbnail={this.thumbnail(book)}
               >
                 {this.props.bookTopContent(book)}
               </Book>
